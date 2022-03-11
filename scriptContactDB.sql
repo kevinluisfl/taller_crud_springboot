@@ -4,8 +4,6 @@ CREATE DATABASE contactdb;
 
 USE contactdb;
 
-DROP TABLE IF EXISTS contact;
-
 CREATE TABLE contact (
 	id_contact INT(10) NOT NULL AUTO_INCREMENT,
 	con_full_name VARCHAR(200) NOT NULL DEFAULT '',

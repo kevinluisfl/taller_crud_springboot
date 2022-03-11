@@ -40,18 +40,8 @@ public class Contact implements Serializable{
 	
 	@Column(name = "con_birth_date")
 	private Date birthdate;
-	
+
 	@Column(name = "con_deleted")
-	private String deleted;
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
+	private String deleted = "false";
 
 }

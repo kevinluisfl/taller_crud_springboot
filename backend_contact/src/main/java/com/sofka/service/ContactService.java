@@ -39,6 +39,31 @@ public class ContactService implements IContactService {
 		return contactDao.save(contact);
 	}
 
+	@Transactional
+	public void updateName(Long id, Contact contact){
+		contactDao.updateName(id, contact.getFullname());
+	}
+
+	@Transactional
+	public void updatePhone(Long id, Contact contact){
+		contactDao.updatePhone(id, contact.getPhone());
+	}
+
+	@Transactional
+	public void updateEmail(Long id, Contact contact){
+		contactDao.updateEmail(id, contact.getEmail());
+	}
+
+	@Transactional
+	public void updateBirthdate(Long id, Contact contact){
+		contactDao.updateBirthdate(id, contact.getBirthdate());
+	}
+
+	@Transactional
+	public void updateDeleted(Long id){
+		contactDao.updateDeleted(id);
+	}
+
 	@Override
 	@Transactional
 	public void delete(Contact contact) {
