@@ -10,7 +10,7 @@ import {
 const RegistroContacto = () => {
 
     const [error, setError] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(Moment().format('YYYY/MM/DD'));
+    const [selectedDate, setSelectedDate] = useState(Moment().format('YYYY-MM-DD'));
     const [input, setInput] = useState({
         id: "",
         fullname: "",
@@ -26,7 +26,7 @@ const RegistroContacto = () => {
     const verContactos = () => dispatch(vercontactosAction());
 
     const contactoeditar = useSelector(state => state.contacto.contactoeditar);
-
+    const {fullname, phone, email} = input;
     ///cargar en blanco los campos
     useEffect(()=>{
         setInput({
@@ -54,8 +54,8 @@ const RegistroContacto = () => {
 
     ///cargar valor de la fecha
     useEffect(() => {
-        const birth = Moment().format('YYYY/MM/DD');
-        setSelectedDate(birth);
+//         const birth = Moment().format('YYYY/MM/DD');
+//         setSelectedDate(birth);
         setInput({
           ...input,
           birthdate: selectedDate
@@ -63,7 +63,7 @@ const RegistroContacto = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [selectedDate])
 
-    const {fullname, phone, email} = input;
+    
 
     const handleChange = (e)=>{
         console.log(e.currentTarget.value)
@@ -76,9 +76,9 @@ const RegistroContacto = () => {
         setError(false);
     };
     ///state de la fecha
-    const handleDateChange = (date) => {
-        console.log(date)
-        const birth = Moment(date).format('yyyy/mm/dd');
+    const handleDateChange = (e) => {
+        console.log(e.currentTarget.value)
+        const birth = Moment(e.currentTarget.value).format('YYYY-MM-DD');
         console.log(birth)
         setSelectedDate(birth);
     };
@@ -130,7 +130,7 @@ const RegistroContacto = () => {
                     <label for="floatingInput">Email</label>
                 </div>
                 <div className="form-floating">
-                    <input type="date" className="form-control" id="birthdate" name="birthdate" value={selectedDate} onChange={handleDateChange}/>
+                    <input type="date" className="form-control" id="birthdate" name="birthdate" value={selectedDate} onChange={(e)=>handleDateChange(e)}/>
                     <label for="floatingInput">Fecha de nacimiento</label>
                 </div>
                 <button type="button" className="btn btn-secondary btn-lg">Guardar</button>
