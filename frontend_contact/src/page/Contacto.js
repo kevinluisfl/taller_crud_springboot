@@ -15,6 +15,7 @@ const Contacto = () => {
 
     ///mostrar los datos del state reducer
     const contactos = useSelector(state => state.contacto.contactos);
+    console.log(contactos);
 
     useEffect(() => {
         verContactos();
@@ -30,7 +31,9 @@ const Contacto = () => {
                         <RegistroContacto />
                     </div>
                     <div className="col-xs-12 col-md-8 col-lg-7">
-                        <TablaContactos />
+                        <TablaContactos
+                            contactos = {contactos}
+                        />
                     </div>
                 </div>
             </div>

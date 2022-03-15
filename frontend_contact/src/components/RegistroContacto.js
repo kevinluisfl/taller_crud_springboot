@@ -4,7 +4,7 @@ import Moment from 'moment';
 import {
     guardarcontactoAction,
     editarcontactoAction,
-    vercontactosAction,
+    // vercontactosAction,
   } from "../action/contactoAction";
 
 const RegistroContacto = () => {
@@ -12,7 +12,7 @@ const RegistroContacto = () => {
     const [error, setError] = useState(false);
     const [selectedDate, setSelectedDate] = useState(Moment().format('YYYY-MM-DD'));
     const [input, setInput] = useState({
-        id: "",
+        idcontact: "",
         fullname: "",
         phone: "",
         email: "",
@@ -23,14 +23,14 @@ const RegistroContacto = () => {
 
     const actualizarContacto = (con) => dispatch(editarcontactoAction(con));
     const agregarContacto = (con) => dispatch(guardarcontactoAction(con));
-    const verContactos = () => dispatch(vercontactosAction());
+    // const verContactos = () => dispatch(vercontactosAction());
 
     const contactoeditar = useSelector(state => state.contacto.contactoeditar);
     const {fullname, phone, email} = input;
     ///cargar en blanco los campos
     useEffect(()=>{
         setInput({
-            id: "",
+            idcontact: "",
             fullname: "",
             phone: "",
             email: "",
@@ -43,11 +43,11 @@ const RegistroContacto = () => {
         console.log(contactoeditar);
         if(contactoeditar){
             setInput({
-                id: contactoeditar.id,
-                fullname: contactoeditar.fullname,
+                idcontact: contactoeditar.id_contact,
+                fullname: contactoeditar.full_name,
                 phone: contactoeditar.phone,
                 email: contactoeditar.email,
-                birthdate: contactoeditar.birthdate
+                birthdate: contactoeditar.birth_date
             })
         }
     }, [contactoeditar])
@@ -62,8 +62,6 @@ const RegistroContacto = () => {
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [selectedDate])
-
-    
 
     const handleChange = (e)=>{
         console.log(e.currentTarget.value)
@@ -101,9 +99,9 @@ const RegistroContacto = () => {
 
     const limpiar = () =>{
         setError(false);
-        verContactos();
+        // verContactos();
         setInput({
-            id: "",
+            idcontact: "",
             fullname: "",
             phone: "",
             email: "",
@@ -133,7 +131,7 @@ const RegistroContacto = () => {
                     <input type="date" className="form-control" id="birthdate" name="birthdate" value={selectedDate} onChange={(e)=>handleDateChange(e)}/>
                     <label for="floatingInput">Fecha de nacimiento</label>
                 </div>
-                <button type="button" className="btn btn-secondary btn-lg">Guardar</button>
+                <button type="button" className="btn btn-secondary btn-lg" onClick={onSubmit}>Guardar</button>
             </form>
             {error &&(
                 <div className="alert alert-danger" role="alert">

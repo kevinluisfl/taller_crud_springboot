@@ -2,29 +2,32 @@ import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'moment';
 import {
-    vercontactosAction,
+    // vercontactosAction,
     eliminarcontactoAction,
     obtenerEditarcontactoAction,
   } from "../action/contactoAction";
 
-const TablaContactos = () => {
+const TablaContactos = (props) => {
 
-    const dispatch = useDispatch();
+  const {contactos} = props;
 
-    ///llamar funicones de los action
-    const verContactos = () => dispatch(vercontactosAction());
-    const eliminarContacto = (contact) => dispatch(eliminarcontactoAction(contact));
-    const obtenerEditarContacto = (contact) => dispatch(obtenerEditarcontactoAction(contact));
+  const dispatch = useDispatch();
 
-    ///mostrar los datos del state reducer
-    const contactos = useSelector(state => state.contacto.contactos);
+  ///llamar funicones de los action
+  // const verContactos = () => dispatch(vercontactosAction());
+  const eliminarContacto = (contact) => dispatch(eliminarcontactoAction(contact));
+  const obtenerEditarContacto = (contact) => dispatch(obtenerEditarcontactoAction(contact));
 
-    useEffect(() => {
-        verContactos();
-      // eslint-disable-next-line
-    }, [])
+  ///mostrar los datos del state reducer
+  // const contactos = useSelector(state => state.contacto.contactos);
 
-      //editar
+  useEffect(() => {
+      // verContactos();
+      console.log(contactos)
+    // eslint-disable-next-line
+  }, [])
+
+    //editar
   const updatecontacto = (contact)=>{
     obtenerEditarContacto(contact);
   }
@@ -54,10 +57,10 @@ const TablaContactos = () => {
                     :
                     contactos.map(contact =>(
                         <tr key={contact.id_contact}>
-                        <th>{contact.con_full_name}</th>
-                        <td>{contact.con_phone}</td>
-                        <td>{contact.con_email}</td>
-                        <td>{ Moment(contact.con_birth_date).utc().format('YYYY/MM/DD')  }</td>
+                        <th>{contact.full_name}</th>
+                        <td>{contact.phone}</td>
+                        <td>{contact.email}</td>
+                        <td>{ Moment(contact.birth_date).utc().format('YYYY/MM/DD')  }</td>
                         <td>
                             <div>
                             <button type="button" onClick={()=>updatecontacto(contact)} className="btn btn-secondary btn-sm">Editar</button>

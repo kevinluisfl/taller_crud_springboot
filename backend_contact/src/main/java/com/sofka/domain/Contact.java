@@ -28,19 +28,19 @@ public class Contact implements Serializable{
 	@Column(name = "id_contact")
 	private Long id;
 	
-	@Column(name = "con_full_name")
+	@Column(name = "full_name")
 	private String fullname;
 	
-	@Column(name = "con_phone")
+	@Column(name = "phone")
 	private String phone;
 	
-	@Column(name = "con_email")
+	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "con_birth_date")
+	@Column(name = "birth_date")
 	private Date birthdate;
 
-	@Column(name = "con_deleted")
+	@Column(name = "deleted")
 	private String deleted = "false";
 
 }

@@ -22,7 +22,7 @@ export function vercontactosAction(){
     return async (dispatch) => {
         dispatch(vercontactos());
         try {
-            const res = await clienteAxios.get('/contacts');
+            const res = await clienteAxios.get('contacts');
              console.log(res.data);
             dispatch(vercontactosExito(res.data));
         } catch (error) {
@@ -63,7 +63,7 @@ export function guardarcontactoAction(contact){
         dispatch(guardarcontacto());
         try {
             console.log(contact)
-            const res = await clienteAxios.post('/contact', contact);
+            const res = await clienteAxios.post('contact', contact);
             console.log(res.data);
             dispatch(guardarcontactoExito(contact));
             //refrescar los datos
@@ -91,7 +91,7 @@ export function editarcontactoAction(contact){
     return async dispatch =>{
             dispatch(editarcontacto());
             try {
-                const res = await clienteAxios.put(`/contact/${contact.id}`, contact);
+                const res = await clienteAxios.put(`contact/${contact.idcontact}`, contact);
                 console.log(res.data);
                 dispatch(editarcontactoExito(contact));
                 //refrescar los datos
@@ -119,7 +119,7 @@ export function eliminarcontactoAction(contact){
     return async dispatch=>{
         dispatch(eliminarcontacto());
         try {
-            const res = await clienteAxios.delete(`/contact/${contact.id}`);
+            const res = await clienteAxios.delete(`contact/${contact.id_contact}`);
             console.log(res.data);
             dispatch(eliminarcontactoExito(contact));
                 //refrescar los datos

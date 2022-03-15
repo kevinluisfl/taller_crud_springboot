@@ -17,8 +17,8 @@ import {
 
 const initialState = {
     contactos: [],
-    contactoeditar: null,
     contactosfiltro: [],
+    contactoeditar: null,
     loading: null,
     error: null
 }
