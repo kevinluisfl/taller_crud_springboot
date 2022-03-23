@@ -12,7 +12,7 @@ import {
     ELIMINAR_CONTACTO_EXITO,
     ELIMINAR_CONTACTO_ERROR,
     OBTENER_EDITAR_CONTACTO,
-
+    CONTACTO_EDITAR_NULL
 } from '../type';
 
 import clienteAxios from '../config/axios';
@@ -24,7 +24,7 @@ export function vercontactosAction(){
         try {
             const res = await clienteAxios.get('contacts');
              console.log(res.data);
-            dispatch(vercontactosExito(res.data));
+            dispatch(vercontactosExito(res.data.contacts));
         } catch (error) {
             console.log(error);
             dispatch(vercontactosError());
@@ -91,7 +91,8 @@ export function editarcontactoAction(contact){
     return async dispatch =>{
             dispatch(editarcontacto());
             try {
-                const res = await clienteAxios.put(`contact/${contact.idcontact}`, contact);
+                console.log(contact);
+                const res = await clienteAxios.put(`contact/${contact.id}`, contact);
                 console.log(res.data);
                 dispatch(editarcontactoExito(contact));
                 //refrescar los datos
@@ -119,7 +120,7 @@ export function eliminarcontactoAction(contact){
     return async dispatch=>{
         dispatch(eliminarcontacto());
         try {
-            const res = await clienteAxios.delete(`contact/${contact.id_contact}`);
+            const res = await clienteAxios.delete(`contact/${contact.id}`);
             console.log(res.data);
             dispatch(eliminarcontactoExito(contact));
                 //refrescar los datos
@@ -141,3 +142,15 @@ const eliminarcontactoError = () => ({
     type: ELIMINAR_CONTACTO_ERROR
 });
 ////////////////fin eliminar contacto
+
+/////////////contacto editar null
+export function contactoeditarnullAction(){
+    return dispatch =>{
+        dispatch(contactoeditarnull());
+    }
+}
+
+const contactoeditarnull = () =>({
+    type: CONTACTO_EDITAR_NULL
+})
+/////////////fin contacto editar null

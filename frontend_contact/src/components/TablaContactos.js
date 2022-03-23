@@ -23,7 +23,7 @@ const TablaContactos = (props) => {
 
   useEffect(() => {
       // verContactos();
-      console.log(contactos)
+      console.table(contactos)
     // eslint-disable-next-line
   }, [])
 
@@ -56,11 +56,11 @@ const TablaContactos = (props) => {
                     </tr>)
                     :
                     contactos.map(contact =>(
-                        <tr key={contact.id_contact}>
-                        <th>{contact.full_name}</th>
+                        <tr key={contact.id}>
+                        <td>{contact.fullname}</td>
                         <td>{contact.phone}</td>
                         <td>{contact.email}</td>
-                        <td>{ Moment(contact.birth_date).utc().format('YYYY/MM/DD')  }</td>
+                        <td>{ Moment(contact.birthdate).utc().format('DD/MM/YYYY')  }</td>
                         <td>
                             <div>
                             <button type="button" onClick={()=>updatecontacto(contact)} className="btn btn-secondary btn-sm">Editar</button>

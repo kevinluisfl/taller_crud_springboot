@@ -12,7 +12,7 @@ import {
     ELIMINAR_CONTACTO_EXITO,
     ELIMINAR_CONTACTO_ERROR,
     OBTENER_EDITAR_CONTACTO,
-
+    CONTACTO_EDITAR_NULL
 } from '../type';
 
 const initialState = {
@@ -47,7 +47,7 @@ const contactoReducer = (state = initialState, action) =>{
                 ...state,
                 loading: false,
                 error: null,
-                contactos: state.contactos.map(tp => tp.id_contact === action.payload.id_contact
+                contactos: state.contactos.map(tp => tp.id === action.payload.id
                     ? tp = action.payload
                     : tp),
             }
@@ -68,7 +68,16 @@ const contactoReducer = (state = initialState, action) =>{
         case OBTENER_EDITAR_CONTACTO:
             return{
                 ...state,
-                contactoeditar: action.payload
+                loading: false,
+                error: null,
+                contactoeditar: action.payload,
+            }
+        case CONTACTO_EDITAR_NULL:
+            return{
+                ...state,
+                loading: false,
+                error: null,
+                contactoeditar: null,
             }
 
         case ELIMINAR_CONTACTO_ERROR:

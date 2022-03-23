@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import com.sofka.domain.Contact;
@@ -23,7 +26,7 @@ import com.sofka.service.ContactService;
 
 @Slf4j
 @RestController
-//@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
 public class ContactController {
 	
 	@Autowired
@@ -47,7 +50,7 @@ public class ContactController {
 	@GetMapping(path="/contacts")
 	public Response listado() {
 		try{
-			response.data = contactService.list();
+			response.contacts = contactService.list();
 		}catch (Exception exc){
 			response.error = true;
 			response.message = exc.getMessage();
@@ -60,7 +63,7 @@ public class ContactController {
 	 * crear un contacto
 	 */
 	@PostMapping(path="/contact")
-	public ResponseEntity<Contact> crear(Contact contact) {
+	public ResponseEntity<Contact> crear(@RequestBody Contact contact) {
 		log.info("Contacto a crear: {}", contact);
 		contactService.save(contact);
 		return new ResponseEntity<>(contact, HttpStatus.CREATED);
@@ -80,7 +83,7 @@ public class ContactController {
 	 * actualizar un contacto
 	 */
 	@PutMapping(path="/contact/{id}")
-	public ResponseEntity<Contact> actualizar(Contact contact, @PathVariable("id") Long id) {
+	public ResponseEntity<Contact> actualizar(@RequestBody Contact contact, @PathVariable("id") Long id) {
 		log.info("Contacto a modificar: {}", contact);
 		contactService.update(id,contact);
 		return new ResponseEntity<>(contact, HttpStatus.OK);
@@ -90,35 +93,35 @@ public class ContactController {
 	 * modificaciones por campo
 	 */
 	@PatchMapping(path="/contact/fullname/{id}")
-	public ResponseEntity<Contact>  actualizarNombre(Contact contact, @PathVariable("id") Long id) {
+	public ResponseEntity<Contact>  actualizarNombre(@RequestBody Contact contact, @PathVariable("id") Long id) {
 		log.info("Contacto a modificar nombre: {}", contact);
 		contactService.updateName(id,contact);
 		return new ResponseEntity<>(contact, HttpStatus.OK);
 	}
 
 	@PatchMapping(path="/contact/phone/{id}")
-	public ResponseEntity<Contact> actualizarPhone(Contact contact, @PathVariable("id") Long id) {
+	public ResponseEntity<Contact> actualizarPhone(@RequestBody Contact contact, @PathVariable("id") Long id) {
 		log.info("Contacto a modificar telefono: {}", contact);
 		contactService.updatePhone(id,contact);
 		return new ResponseEntity<>(contact, HttpStatus.OK);
 	}
 
 	@PatchMapping(path="/contact/email/{id}")
-	public ResponseEntity<Contact> actualizarEmail(Contact contact, @PathVariable("id") Long id) {
+	public ResponseEntity<Contact> actualizarEmail(@RequestBody Contact contact, @PathVariable("id") Long id) {
 		log.info("Contacto a modificar correo: {}", contact);
 		contactService.updateEmail(id,contact);
 		return new ResponseEntity<>(contact, HttpStatus.OK);
 	}
 
 	@PatchMapping(path="/contact/birthdate/{id}")
-	public ResponseEntity<Contact> actualizarBirthdate(Contact contact, @PathVariable("id") Long id) {
+	public ResponseEntity<Contact> actualizarBirthdate(@RequestBody Contact contact, @PathVariable("id") Long id) {
 		log.info("Contacto a modificar correo: {}", contact);
 		contactService.updateBirthdate(id,contact);
 		return new ResponseEntity<>(contact, HttpStatus.OK);
 	}
 
 	@PatchMapping(path="/contact/deleted/{id}")
-	public ResponseEntity<String> actualizarDeleted(Contact contact, @PathVariable("id") Long id) {
+	public ResponseEntity<String> actualizarDeleted(@RequestBody Contact contact, @PathVariable("id") Long id) {
 		log.info("Contacto a modificar correo: {}", contact);
 		contactService.updateDeleted(id);
 		return new ResponseEntity<>("user eliminated", HttpStatus.OK);

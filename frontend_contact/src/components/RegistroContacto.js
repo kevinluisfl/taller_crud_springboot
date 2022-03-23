@@ -4,6 +4,7 @@ import Moment from 'moment';
 import {
     guardarcontactoAction,
     editarcontactoAction,
+    contactoeditarnullAction,
     // vercontactosAction,
   } from "../action/contactoAction";
 
@@ -12,7 +13,7 @@ const RegistroContacto = () => {
     const [error, setError] = useState(false);
     const [selectedDate, setSelectedDate] = useState(Moment().format('YYYY-MM-DD'));
     const [input, setInput] = useState({
-        idcontact: "",
+        id: "",
         fullname: "",
         phone: "",
         email: "",
@@ -23,14 +24,15 @@ const RegistroContacto = () => {
 
     const actualizarContacto = (con) => dispatch(editarcontactoAction(con));
     const agregarContacto = (con) => dispatch(guardarcontactoAction(con));
+    const contactoeditarnull = () => dispatch(contactoeditarnullAction());
     // const verContactos = () => dispatch(vercontactosAction());
 
     const contactoeditar = useSelector(state => state.contacto.contactoeditar);
-    const {fullname, phone, email} = input;
+    const {fullname, phone, email, birthdate} = input;
     ///cargar en blanco los campos
     useEffect(()=>{
         setInput({
-            idcontact: "",
+            id: "",
             fullname: "",
             phone: "",
             email: "",
@@ -43,11 +45,11 @@ const RegistroContacto = () => {
         console.log(contactoeditar);
         if(contactoeditar){
             setInput({
-                idcontact: contactoeditar.id_contact,
-                fullname: contactoeditar.full_name,
+                id: contactoeditar.id,
+                fullname: contactoeditar.fullname,
                 phone: contactoeditar.phone,
                 email: contactoeditar.email,
-                birthdate: contactoeditar.birth_date
+                birthdate: contactoeditar.birthdate
             })
         }
     }, [contactoeditar])
@@ -63,13 +65,19 @@ const RegistroContacto = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [selectedDate])
 
+      useEffect(() =>{
+        const birth = Moment(birthdate).format('YYYY-MM-DD');
+        console.log(birth)
+        setSelectedDate(birth);
+      }, [birthdate])
+
     const handleChange = (e)=>{
         console.log(e.currentTarget.value)
         setInput(
             {
                 ...input,
                 [e.currentTarget.name]: e.currentTarget.value
-            },[input]
+            }
         )
         setError(false);
     };
@@ -83,7 +91,7 @@ const RegistroContacto = () => {
 
     const  onSubmit = (e) =>{
         e.preventDefault();
-
+        console.log(input)
         if(fullname.trim() === "" || phone.trim() === "" || email.trim() === ""){
             setError(true);
             return;
@@ -99,9 +107,10 @@ const RegistroContacto = () => {
 
     const limpiar = () =>{
         setError(false);
+        contactoeditarnull();
         // verContactos();
         setInput({
-            idcontact: "",
+            id: "",
             fullname: "",
             phone: "",
             email: "",
@@ -113,7 +122,7 @@ const RegistroContacto = () => {
         <div>
             <h2>Registro contacto</h2>
             <form alignItems="center" 
-            onSubmit={onSubmit}
+            // onSubmit={onSubmit}
             >
                 <div className="form-floating">
                     <input type="text" className="form-control" id="fullname" name="fullname" value={fullname} onChange={(e) => handleChange(e)}/>
@@ -131,7 +140,14 @@ const RegistroContacto = () => {
                     <input type="date" className="form-control" id="birthdate" name="birthdate" value={selectedDate} onChange={(e)=>handleDateChange(e)}/>
                     <label for="floatingInput">Fecha de nacimiento</label>
                 </div>
-                <button type="button" className="btn btn-secondary btn-lg" onClick={onSubmit}>Guardar</button>
+                <div className="row">
+                    <div className="col-xs-6 col-md-6 col-lg-6">
+                        <button type="button" className="btn btn-secondary btn-lg" onClick={onSubmit}>Guardar</button>
+                    </div>
+                    <div className="col-xs-6 col-md-6 col-lg-6">
+                        <button type="button" className="btn btn-danger btn-lg" onClick={limpiar}>Limpiar</button>
+                    </div>
+                </div>
             </form>
             {error &&(
                 <div className="alert alert-danger" role="alert">
