@@ -5,7 +5,6 @@ import {
     guardarcontactoAction,
     editarcontactoAction,
     contactoeditarnullAction,
-    // vercontactosAction,
   } from "../action/contactoAction";
 
 const RegistroContacto = () => {
@@ -25,10 +24,9 @@ const RegistroContacto = () => {
     const actualizarContacto = (con) => dispatch(editarcontactoAction(con));
     const agregarContacto = (con) => dispatch(guardarcontactoAction(con));
     const contactoeditarnull = () => dispatch(contactoeditarnullAction());
-    // const verContactos = () => dispatch(vercontactosAction());
 
     const contactoeditar = useSelector(state => state.contacto.contactoeditar);
-    const {fullname, phone, email, birthdate} = input;
+    const {fullname, phone, email} = input;
     ///cargar en blanco los campos
     useEffect(()=>{
         setInput({
@@ -44,32 +42,26 @@ const RegistroContacto = () => {
     useEffect(()=>{
         console.log(contactoeditar);
         if(contactoeditar){
+            const birth = Moment(contactoeditar.birthdate).format('YYYY-MM-DD');
+            setSelectedDate(birth);
             setInput({
                 id: contactoeditar.id,
                 fullname: contactoeditar.fullname,
                 phone: contactoeditar.phone,
                 email: contactoeditar.email,
-                birthdate: contactoeditar.birthdate
+                birthdate: selectedDate
             })
         }
     }, [contactoeditar])
 
     ///cargar valor de la fecha
     useEffect(() => {
-//         const birth = Moment().format('YYYY/MM/DD');
-//         setSelectedDate(birth);
         setInput({
           ...input,
           birthdate: selectedDate
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [selectedDate])
-
-      useEffect(() =>{
-        const birth = Moment(birthdate).format('YYYY-MM-DD');
-        console.log(birth)
-        setSelectedDate(birth);
-      }, [birthdate])
 
     const handleChange = (e)=>{
         console.log(e.currentTarget.value)
@@ -85,7 +77,6 @@ const RegistroContacto = () => {
     const handleDateChange = (e) => {
         console.log(e.currentTarget.value)
         const birth = Moment(e.currentTarget.value).format('YYYY-MM-DD');
-        console.log(birth)
         setSelectedDate(birth);
     };
 
@@ -108,7 +99,6 @@ const RegistroContacto = () => {
     const limpiar = () =>{
         setError(false);
         contactoeditarnull();
-        // verContactos();
         setInput({
             id: "",
             fullname: "",
@@ -121,8 +111,7 @@ const RegistroContacto = () => {
     return ( 
         <div>
             <h2>Registro contacto</h2>
-            <form alignItems="center" 
-            // onSubmit={onSubmit}
+            <form alignItems="center"
             >
                 <div className="form-floating">
                     <input type="text" className="form-control" id="fullname" name="fullname" value={fullname} onChange={(e) => handleChange(e)}/>
@@ -142,10 +131,10 @@ const RegistroContacto = () => {
                 </div>
                 <div className="row">
                     <div className="col-xs-6 col-md-6 col-lg-6">
-                        <button type="button" className="btn btn-secondary btn-lg" onClick={onSubmit}>Guardar</button>
+                        <button type="button" className="btn btn-secondary btn-lg" onClick={onSubmit}>{contactoeditar?"Actualizar ":"Guardar "}<span class="material-icons">save</span></button>
                     </div>
                     <div className="col-xs-6 col-md-6 col-lg-6">
-                        <button type="button" className="btn btn-danger btn-lg" onClick={limpiar}>Limpiar</button>
+                        <button type="button" className="btn btn-danger btn-lg" onClick={limpiar}>Cancelar <span class="material-icons">cancel_presentation</span></button>
                     </div>
                 </div>
             </form>

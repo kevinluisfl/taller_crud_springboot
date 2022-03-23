@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Date;
-
 public interface ContactDao extends CrudRepository<Contact, Long> {
 
     @Modifying
@@ -28,7 +26,7 @@ public interface ContactDao extends CrudRepository<Contact, Long> {
     @Modifying
     @Query("UPDATE Contact con SET con.birthdate = :birthdate WHERE con.id = :id")
     public void updateBirthdate(@Param(value = "id") Long id,
-                            @Param(value = "birthdate") Date birthdate);
+                            @Param(value = "birthdate") String birthdate);
 
     @Modifying
     @Query("UPDATE Contact con SET con.deleted = 'true' WHERE con.id = :id")

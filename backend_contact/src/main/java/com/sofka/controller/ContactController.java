@@ -74,7 +74,7 @@ public class ContactController {
 	 */
 	@DeleteMapping(path="/contact/{id}")
 	public ResponseEntity<Contact>  borrar(Contact contact) {
-		log.info("Contacto a borrar: {}", contact);
+		log.info("Contacto a borrar fisicamente: {}", contact);
 		contactService.delete(contact);
 		return new ResponseEntity<>(contact, HttpStatus.OK);
 	}
@@ -115,14 +115,14 @@ public class ContactController {
 
 	@PatchMapping(path="/contact/birthdate/{id}")
 	public ResponseEntity<Contact> actualizarBirthdate(@RequestBody Contact contact, @PathVariable("id") Long id) {
-		log.info("Contacto a modificar correo: {}", contact);
+		log.info("Contacto a modificar nacimiento: {}", contact);
 		contactService.updateBirthdate(id,contact);
 		return new ResponseEntity<>(contact, HttpStatus.OK);
 	}
 
 	@PatchMapping(path="/contact/deleted/{id}")
 	public ResponseEntity<String> actualizarDeleted(@RequestBody Contact contact, @PathVariable("id") Long id) {
-		log.info("Contacto a modificar correo: {}", contact);
+		log.info("Contacto a eliminar logicamente: {}", contact);
 		contactService.updateDeleted(id);
 		return new ResponseEntity<>("user eliminated", HttpStatus.OK);
 	}

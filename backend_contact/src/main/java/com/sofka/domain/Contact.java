@@ -2,6 +2,7 @@ package com.sofka.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -37,8 +38,12 @@ public class Contact implements Serializable{
 	@Column(name = "email")
 	private String email;
 	
+	//@Column(name = "birth_date")
+	//@JsonFormat(pattern = "yyyy-MM-dd")
+	//private Date birthdate;
+
 	@Column(name = "birth_date")
-	private Date birthdate;
+	private String birthdate;
 
 	@Column(name = "deleted")
 	private String deleted = "false";

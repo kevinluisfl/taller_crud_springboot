@@ -62,10 +62,8 @@ const TablaContactos = (props) => {
                         <td>{contact.email}</td>
                         <td>{ Moment(contact.birthdate).utc().format('DD/MM/YYYY')  }</td>
                         <td>
-                            <div>
-                            <button type="button" onClick={()=>updatecontacto(contact)} className="btn btn-secondary btn-sm">Editar</button>
-                            <button type="button" onClick={()=>deletecontacto(contact)} className="btn btn-danger btn-sm">Eliminar</button>
-                            </div>
+                            <span type="button" title="Editar" onClick={()=>updatecontacto(contact)} class="material-icons">edit</span>
+                            <span type="button" title="Eliminar" onClick={()=>deletecontacto(contact)} class="material-icons">delete</span>
                         </td>
                         </tr>
                     ))

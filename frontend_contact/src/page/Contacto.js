@@ -25,7 +25,7 @@ const Contacto = () => {
     return ( 
         <div className="container">
             <div className="card text-center">
-                <h1>Contactos <span className="badge bg-secondary">{contactos && contactos.length}</span></h1>
+                <h1> <span class="material-icons">account_box</span> Contactos <span className="badge bg-secondary">{contactos && contactos.length}</span></h1>
                 <div className="row">
                     <div className="col-xs-12 col-md-4 col-lg-5">
                         <RegistroContacto />

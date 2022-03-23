@@ -63,7 +63,7 @@ const contactoReducer = (state = initialState, action) =>{
                 ...state,
                 loading: false,
                 error: null,
-                contactos: state.contactos.filter(tp => tp.id_contact !== action.payload.id_contact),
+                contactos: state.contactos.filter(tp => tp.id !== action.payload.id),
             }
         case OBTENER_EDITAR_CONTACTO:
             return{
