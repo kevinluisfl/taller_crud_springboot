@@ -97,6 +97,7 @@ const RegistroContacto = () => {
     }
 
     const limpiar = () =>{
+        setSelectedDate(Moment().format('YYYY-MM-DD'));
         setError(false);
         contactoeditarnull();
         setInput({
