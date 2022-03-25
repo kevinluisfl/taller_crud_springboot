@@ -17,7 +17,6 @@ import {
 
 const initialState = {
     contactos: [],
-    contactosfiltro: [],
     contactoeditar: null,
     loading: null,
     error: null
@@ -40,7 +39,7 @@ const contactoReducer = (state = initialState, action) =>{
                 ...state,
                 loading: false,
                 error: null,
-                contactos: action.payload
+                contactos: action.payload,
             }
         case EDITAR_CONTACTO_EXITO:
             return{

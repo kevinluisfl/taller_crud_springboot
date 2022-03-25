@@ -62,7 +62,6 @@ export function guardarcontactoAction(contact){
     return async dispatch =>{
         dispatch(guardarcontacto());
         try {
-            console.log(contact)
             const res = await clienteAxios.post('contact', contact);
             console.log(res.data);
             dispatch(guardarcontactoExito(contact));
@@ -91,7 +90,6 @@ export function editarcontactoAction(contact){
     return async dispatch =>{
             dispatch(editarcontacto());
             try {
-                console.log(contact);
                 const res = await clienteAxios.put(`contact/${contact.id}`, contact);
                 console.log(res.data);
                 dispatch(editarcontactoExito(contact));

@@ -40,7 +40,6 @@ const RegistroContacto = () => {
 
     //si hay un item por editar
     useEffect(()=>{
-        console.log(contactoeditar);
         if(contactoeditar){
             const birth = Moment(contactoeditar.birthdate).format('YYYY-MM-DD');
             setSelectedDate(birth);
@@ -64,7 +63,6 @@ const RegistroContacto = () => {
       }, [selectedDate])
 
     const handleChange = (e)=>{
-        console.log(e.currentTarget.value)
         setInput(
             {
                 ...input,
@@ -75,14 +73,12 @@ const RegistroContacto = () => {
     };
     ///state de la fecha
     const handleDateChange = (e) => {
-        console.log(e.currentTarget.value)
         const birth = Moment(e.currentTarget.value).format('YYYY-MM-DD');
         setSelectedDate(birth);
     };
 
     const  onSubmit = (e) =>{
         e.preventDefault();
-        console.log(input)
         if(fullname.trim() === "" || phone.trim() === "" || email.trim() === ""){
             setError(true);
             return;
@@ -110,7 +106,7 @@ const RegistroContacto = () => {
     }
 
     return ( 
-        <div>
+        <div className="container">
             <h2>Registro contacto</h2>
             <form alignItems="center"
             >
@@ -131,11 +127,11 @@ const RegistroContacto = () => {
                     <label for="floatingInput">Fecha de nacimiento</label>
                 </div>
                 <div className="row">
-                    <div className="col-xs-6 col-md-6 col-lg-6">
-                        <button type="button" className="btn btn-secondary btn-lg" onClick={onSubmit}>{contactoeditar?"Actualizar ":"Guardar "}<span class="material-icons">save</span></button>
-                    </div>
-                    <div className="col-xs-6 col-md-6 col-lg-6">
-                        <button type="button" className="btn btn-danger btn-lg" onClick={limpiar}>Cancelar <span class="material-icons">cancel_presentation</span></button>
+                    <div className="col-xs-12 col-md-12 col-lg-12">
+                        <button type="button" className="btn btn-outline-secondary btn-sm" onClick={onSubmit}>{contactoeditar?"Actualizar ":"Guardar "}<span class="material-icons">save</span></button>
+                    {/* </div>
+                    <div className="col-xs-6 col-md-6 col-lg-6"> */}
+                        <button type="button" className="btn btn-outline-danger btn-sm" onClick={limpiar}>Cancelar <span class="material-icons">cancel_presentation</span></button>
                     </div>
                 </div>
             </form>

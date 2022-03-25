@@ -1,8 +1,7 @@
-import React, { useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import Moment from 'moment';
 import {
-    // vercontactosAction,
     eliminarcontactoAction,
     obtenerEditarcontactoAction,
   } from "../action/contactoAction";
@@ -14,18 +13,8 @@ const TablaContactos = (props) => {
   const dispatch = useDispatch();
 
   ///llamar funicones de los action
-  // const verContactos = () => dispatch(vercontactosAction());
   const eliminarContacto = (contact) => dispatch(eliminarcontactoAction(contact));
   const obtenerEditarContacto = (contact) => dispatch(obtenerEditarcontactoAction(contact));
-
-  ///mostrar los datos del state reducer
-  // const contactos = useSelector(state => state.contacto.contactos);
-
-  useEffect(() => {
-      // verContactos();
-      console.table(contactos)
-    // eslint-disable-next-line
-  }, [])
 
     //editar
   const updatecontacto = (contact)=>{
@@ -37,9 +26,8 @@ const TablaContactos = (props) => {
   }
 
     return ( 
-        <div>
-            <h2>Tabla contactos</h2>
-            <table className="table">
+        <div className="container">
+            <table className="table table-hover">
                 <thead>
                     <tr>
                     <th scope="col">Nombre</th>
@@ -62,8 +50,8 @@ const TablaContactos = (props) => {
                         <td>{contact.email}</td>
                         <td>{ Moment(contact.birthdate).utc().format('DD/MM/YYYY')  }</td>
                         <td>
-                            <span type="button" title="Editar" onClick={()=>updatecontacto(contact)} class="material-icons">edit</span>
-                            <span type="button" title="Eliminar" onClick={()=>deletecontacto(contact)} class="material-icons">delete</span>
+                            <span type="button" title="Editar" onClick={()=>updatecontacto(contact)} class="material-icons btnEdit">edit</span>
+                            <span type="button" title="Eliminar" onClick={()=>deletecontacto(contact)} class="material-icons btnDelete">delete</span>
                         </td>
                         </tr>
                     ))

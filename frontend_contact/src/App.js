@@ -12,7 +12,6 @@ function App() {
       <Provider store={store}>
         <Switch>
          <Route exact path="/" component={Contacto} />
-          {/* <Contacto /> */}
         </Switch>
       </Provider>
     </Router>

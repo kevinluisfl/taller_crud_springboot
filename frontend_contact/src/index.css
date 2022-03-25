@@ -15,3 +15,31 @@ code {
 div{
   margin: 1rem 0;
 }
+
+.btnDelete{
+  color: rgba(63, 61, 61, 0.938);
+  font-size: 2rem;
+}
+.btnDelete:hover{
+  color: rgb(255, 5, 5);
+  font-size: 1.9rem;
+}
+.btnEdit{
+  color: rgba(63, 61, 61, 0.938);
+  font-size: 2rem;
+}
+.btnEdit:hover{
+  color: rgb(230, 194, 36);
+  font-size: 1.9rem;
+}
+h1{
+  margin: 1rem;
+}
+input[type="search"]{
+  width: 50%;
+  margin: auto;
+}
+.input-group{
+  width: 50%;
+  margin: auto;
+}
